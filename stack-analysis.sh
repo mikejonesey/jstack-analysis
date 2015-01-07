@@ -3,6 +3,9 @@
 if [ -f ".tmp/blocks.out" ]; then
   rm -rvf .tmp/blocks.out
 fi
+if [ -f ".tmp/states.out" ]; then
+  rm -rvf .tmp/states.out
+fi
 
 function findBlockages(){
   #this function will find any process that has been blocked.
@@ -28,9 +31,10 @@ function findLongRunning(){
   find stacks/ -type f -name "stack-*.out" | while read af; do
     fileStamp=$(echo "$af" | sed -e 's/.*-//' -e 's/\..*//')
     cat "$af" | grep "^\"" | sed -e 's/^"//' -e 's/".*//' | sort -n | while read athread; do
-      procy=$(cat "$af" | grep "hybrisHTTP38" -A 2 | tail -1 | awk '{print $2}')
-      procyState=$(cat "$af" | grep "hybrisHTTP38" -A 1 | tail -1 | awk '{print $2}')
-      echo "$fileStamp,$procy,$procyState" >> .tmp/states.out
+      atREG=$(echo "$athread" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
+      procy=$(cat "$af" | grep "$atREG" -A 2 | tail -1 | awk '{print $2}')
+      procyState=$(cat "$af" | grep "$atREG" -A 1 | tail -1 | awk '{print $2}')
+      echo "$fileStamp,$athread,$procy,$procyState" >> .tmp/states.out
     done
   done
 }
