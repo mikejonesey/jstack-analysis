@@ -1,0 +1,28 @@
+----------------------------------------
+Top occuring blockages...
+
+      4 de.hybris.platform.servicelayer.web.SessionFilter.getJaloSession(SessionFilter.java:203)
+      1 org.springframework.web.context.request.SessionScope.get(SessionScope.java:91)
+
+Top occuring blockages causes...
+
+      5 org.zkoss.zk.ui.impl.UiEngineImpl.doActivate(UiEngineImpl.java:1533)
+
+Longest blocked processes...
+
+     1	Thread: "hybrisHTTP1" was blocked for 15 secconds, from: 01/07/15 12:00:00 to: 01/07/15 12:00:15
+     2	Thread: "hybrisHTTP19" was blocked for 15 secconds, from: 01/07/15 12:00:00 to: 01/07/15 12:00:15
+     3	Thread: "hybrisHTTP38" was blocked for 15 secconds, from: 01/07/15 12:00:00 to: 01/07/15 12:00:15
+     4	Thread: "hybrisHTTP7" was blocked for 15 secconds, from: 01/07/15 12:00:00 to: 01/07/15 12:00:15
+     5	Thread: "Thread-40" was blocked for 15 secconds, from: 01/07/15 12:00:00 to: 01/07/15 12:00:15
+
+----------------------------------------
+Blockage details...
+----------------------------------------
+
+    Blockage: de.hybris.platform.servicelayer.web.SessionFilter.getJaloSession(SessionFilter.java:203), was caused by: 
+     16 org.zkoss.zk.ui.impl.UiEngineImpl.doActivate(UiEngineImpl.java:1533) locking a resource for... org.apache.catalina.session.StandardSessionFacade
+
+    Blockage: org.springframework.web.context.request.SessionScope.get(SessionScope.java:91), was caused by: 
+      4 org.zkoss.zk.ui.impl.UiEngineImpl.doActivate(UiEngineImpl.java:1533) locking a resource for... org.apache.catalina.session.StandardSessionFacade
+

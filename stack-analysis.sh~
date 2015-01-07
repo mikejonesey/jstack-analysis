@@ -30,7 +30,7 @@ function findLongRunning(){
     cat "$af" | grep "^\"" | sed -e 's/^"//' -e 's/".*//' | sort -n | while read athread; do
       procy=$(cat "$af" | grep "hybrisHTTP38" -A 2 | tail -1 | awk '{print $2}')
       procyState=$(cat "$af" | grep "hybrisHTTP38" -A 1 | tail -1 | awk '{print $2}')
-      echo "$fileStamp,$procy,$procyState" >> .tmp/states.out
+      echo "$fileStamp,$procy,$procyState"
     done
   done
 }
