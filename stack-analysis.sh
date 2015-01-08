@@ -113,6 +113,36 @@ function findLongRunning(){
 		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
 		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
 	done | sort -n | tail -10 | tac | tee -a .tmp/proa3.out
+
+	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
+		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
+		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
+		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
+		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
+		((threadStart--))
+		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
+		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+	done | sort -n | tail -10 | tac | tee -a .tmp/proa4.out
+
+	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
+		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
+		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
+		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
+		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
+		((threadStart--))
+		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
+		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+	done | sort -n | tail -10 | tac | tee -a .tmp/proa5.out
+
+	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
+		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
+		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
+		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
+		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
+		((threadStart--))
+		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
+		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+	done | sort -n | tail -10 | tac | tee -a .tmp/proa6.out
 }
 
 function printReport(){
@@ -168,47 +198,29 @@ function printReport(){
 		cat .tmp/proa3.out
 	fi
 
-	#Process longest proc waiting...
-	echo "----------------------------------------"
-	echo "SUM: longest procs waiting..."
-	echo "----------------------------------------"
-	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
-		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
-		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
-		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
-		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
-		((threadStart--))
-		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
-	done | sort -n | tail -10 | tac | tee -a .tmp/proa1.out
+	if [ -f ".tmp/proa4.out" ]; then
+		#Process longest proc waiting...
+		echo "----------------------------------------"
+		echo "SUM: longest procs waiting..."
+		echo "----------------------------------------"
+		cat .tmp/proa4.out
+	fi
 
-	#Process longest proc running...
-	echo "----------------------------------------"
-	echo "SUM: longest procs running..."
-	echo "----------------------------------------"
-	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
-		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
-		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
-		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
-		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
-		((threadStart--))
-		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
-	done | sort -n | tail -10 | tac | tee -a .tmp/proa1.out
+	if [ -f ".tmp/proa5.out" ]; then
+		#Process longest proc running...
+		echo "----------------------------------------"
+		echo "SUM: longest procs running..."
+		echo "----------------------------------------"
+		cat .tmp/proa5.out
+	fi
 
-	#Process procs...
-	echo "----------------------------------------"
-	echo "SUM: longest procs..."
-	echo "----------------------------------------"
-	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
-		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
-		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
-		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
-		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
-		((threadStart--))
-		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
-	done | sort -n | tail -10 | tac | tee -a .tmp/proa1.out
+	if [ -f ".tmp/proa6.out" ]; then
+		#Process procs...
+		echo "----------------------------------------"	
+		echo "SUM: longest procs..."
+		echo "----------------------------------------"
+		cat .tmp/proa6.out
+	fi
 
 	#Process thread types...
 	fi
