@@ -1,0 +1,290 @@
+16,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Connection,java.net.SocketInputStream.socketRead0(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Unicast Distributed Cache Server,java.net.PlainDatagramSocketImpl.receive0(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-1,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-0,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-6,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43426,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43425,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-41,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-40,org.springframework.web.context.request.SessionScope.get(SessionScope.java:91),2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-34,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-33,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-18573,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-18276,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-1283,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-1277,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-1270,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-112,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-9,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-8,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-7,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-6,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-5,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-4,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-3,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-2,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-1,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,task-scheduler-10,sun.misc.Unsafe.park(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-1,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-0,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-6,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43426,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43425,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-41,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-34,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-1,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-0,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-6,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43426,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43425,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-41,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-34,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-1,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-0,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-6,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43426,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43425,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-41,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-34,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-1,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-0,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-6,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43426,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43425,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-41,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-34,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-1,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Timer-0,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-6,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43426,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-43425,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-41,java.lang.Object.wait(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+16,Thread-34,java.lang.Thread.sleep(Native,2015-01-07 11:59:59,2015-01-07 12:00:15
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Connection,java.net.SocketInputStream.socketRead0(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-0,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Thread-9,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Thread-10,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-6,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-5,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-4,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-3,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-1,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Task-master-poll,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-9004,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-9003,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-2198,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-0,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI Scheduler(0),sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI Reaper,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Reference Handler,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,process reaper,java.lang.UNIXProcess.waitForProcessExit(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,ProcessExecutorINFOOut,java.io.FileInputStream.readBytes(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Connection,java.net.SocketInputStream.socketRead0(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-0,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Thread-9,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Thread-10,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-6,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-5,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-4,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-3,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-1,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Task-master-poll,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-9004,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-9003,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-2198,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-0,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI Scheduler(0),sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI Reaper,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Reference Handler,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,process reaper,java.lang.UNIXProcess.waitForProcessExit(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,ProcessExecutorINFOOut,java.io.FileInputStream.readBytes(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Connection,java.net.SocketInputStream.socketRead0(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-0,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Thread-9,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Thread-10,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-6,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-5,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-4,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-3,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,task-scheduler-1,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Task-master-poll,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-9004,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-9003,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-2198,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI TCP Accept-0,java.net.PlainSocketImpl.socketAccept(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI Scheduler(0),sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,RMI Reaper,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Reference Handler,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,process reaper,java.lang.UNIXProcess.waitForProcessExit(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,ProcessExecutorINFOOut,java.io.FileInputStream.readBytes(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,WrapperSimpleAppMain,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Wrapper-Control-Event-Monitor,java.lang.Thread.sleep(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,TransferQueueBundler,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer runner-1,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-5,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-4,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-3,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,sun.misc.Unsafe.park(Native,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-2,hybris-broadcast,2015-01-07 21:22:01,2015-01-07 21:24:03
+122,Timer-1,java.lang.Object.wait(Native,2015-01-07 21:22:01,2015-01-07 21:24:03

@@ -1,0 +1,22 @@
+----------------------------------------
+Top occuring blockages...
+
+      1 connection
+
+Top occuring blockages causes...
+
+      1 connection
+
+Longest blocked processes...
+
+
+----------------------------------------
+Blockage details...
+----------------------------------------
+
+    Blockage: connection, was caused by: 
+      1 java.lang.Object.wait(Native locking a resource for... 
+
+----------------------------------------
+Longest time process...
+----------------------------------------

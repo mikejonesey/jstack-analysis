@@ -1,0 +1,22 @@
+----------------------------------------
+Top occuring blockages...
+
+      1 
+
+Top occuring blockages causes...
+
+      1 
+
+Longest blocked processes...
+
+
+----------------------------------------
+Blockage details...
+----------------------------------------
+
+    Blockage: , was caused by: 
+    144  locking a resource for... 
+
+----------------------------------------
+Longest time process...
+----------------------------------------
