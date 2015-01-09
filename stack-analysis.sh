@@ -66,20 +66,20 @@ function findBlockages(){
 	done
 
 	if [ -f ".tmp/blocks.out" ]; then
-		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $2 " " $5}' | sort -u | awk '{print $2}' | sort | uniq -c | sort -n | tac > top.blocks
-		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $2 " " $3}' | sort -u | awk '{print $2}' | sort | uniq -c | sort -n | tac > top.block.cause
+		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $3}' | sort | uniq -c | sort -n | tac > .tmp/top.blocked.procs
+		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $4}' | sort | sed 's/^$/Unexplained Mystery/' | uniq -c | sort -n | tac > .tmp/top.block.cause
 		i=0; cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $2 " " $1}' | sort | while read aline; do if [ "$lastID" != "$(echo "$aline" | awk '{print $1}')" -a "$i" -gt "0" ]; then echo "$lastID $ID_START_TIME $ID_LAST_TIME $(($ID_LAST_TIME-$ID_START_TIME))"; ID_START_TIME=$(echo "$aline" | awk '{print $2}'); elif [ "$i" == "0" ]; then ID_START_TIME=$(echo "$aline" | awk '{print $2}'); fi; ((i++)); ID_LAST_TIME=$(echo "$aline" | awk '{print $2}'); lastID="$(echo "$aline" | awk '{print $1}')"; if [ "$i" == "20" ]; then echo "$lastID $ID_START_TIME $ID_LAST_TIME $(($ID_LAST_TIME-$ID_START_TIME))"; fi; done | sort -n -k4 | while read athread; do
 			threadName=$(echo "$athread" | awk '{print $1}')
 			blockDuration=$(echo "$athread" | awk '{print $4}')
 			blockStart=$(date -d @$(echo "$athread" | awk '{print $2}') +"%D %T")
 			blockEnd=$(date -d @$(echo "$athread" | awk '{print $3}') +"%D %T")
 			echo "Thread: $threadName was blocked for $blockDuration secconds, from: $blockStart to: $blockEnd"
-		done | tac | nl > top.blocks.duration
-		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $2 " " $5}' | sort -u | awk '{print $2}' | sort | uniq -c | sort -n | tac | awk '{print $2}' | while read aline; do
+		done | tac | nl > .tmp/top.blocks.duration
+		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $3}' | sort | uniq -c | sort -n | tac | sed 's/.*[0-9] //' | while read aline; do
 			echo "    Blockage: $aline, was caused by: "
-			cat .tmp/blocks.out | grep "$aline" | awk 'BEGIN{FS=","}{print $3 " locking a resource for... " $4}' | sort | uniq -c | sort -n | tac
+			cat .tmp/blocks.out | grep "$aline" | awk 'BEGIN{FS=","}{print $4 " locking the resource \"" $5 "\""}'|sort|uniq -c|sort -n|tac
 			echo ""
-		done > top.blocks.details
+		done > .tmp/top.blocks.details
 	fi
 }
 
@@ -146,11 +146,11 @@ function findLongRunning(){
 }
 
 function printReport(){
-	if [ -f ".tmp/top.blocks" ]; then
+	if [ -f ".tmp/top.blocked.procs" ]; then
 		echo "----------------------------------------"
-		echo "Top occuring blockages..."
+		echo "Top blocked process..."
 		echo ""
-		cat .tmp/top.blocks
+		cat .tmp/top.blocked.procs
 		echo ""
 	fi
 	if [ -f ".tmp/top.block.cause" ]; then
@@ -223,12 +223,10 @@ function printReport(){
 	fi
 
 	#Process thread types...
-	fi
 }
 
 findBlockages
-exit 1
-findLongRunning
+#findLongRunning
 
 printReport | tee -a "reports/Report-$(date +"%Y%m%d-%H%M%S").txt"
 
