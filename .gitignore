@@ -1,2 +1,9 @@
 stack-*.out
 Report-*.txt
+maxed.out
+states.out
+top.waits.cause
+top.waits.details
+top.waits.duration
+top.waits.procs
+waits.out
