@@ -7,3 +7,14 @@ top.waits.details
 top.waits.duration
 top.waits.procs
 waits.out
+blocks.out
+proa1.out
+thread-summaries.csv
+thread-summaries.dup.csv
+thread-summaries.dup.rrd
+thread-summaries.rrd
+top.block.cause
+top.blocked.procs
+top.blocks.details
+top.blocks.duration
+

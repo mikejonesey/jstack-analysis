@@ -195,6 +195,57 @@ function findLongRunning(){
 #	done | sort -n | tail -10 | tac | tee -a .tmp/proa6.out
 }
 
+function graphables(){
+	echo "summaryTime,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED" > .tmp/thread-summaries.csv
+
+	#produce csv's for csv2rrd
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $1}' | sort -u | sort -n | while read summaryTime; do
+		#echo "debug: summaryTime: $summaryTime"
+		summaryCounts="$(cat .tmp/states.out | grep "^$summaryTime," | awk 'BEGIN{FS=","}{print $2}' | sort | uniq -c | sort -n)"
+		RUNNABLE=$(echo "$summaryCounts" | grep " RUNNABLE$" | awk '{print $1}')
+		if [ -z "$RUNNABLE" ]; then
+			RUNNABLE="0"
+		fi
+		TIMED_WAITING=$(echo "$summaryCounts" | grep " TIMED_WAITING$" | awk '{print $1}')
+		if [ -z "$TIMED_WAITING" ]; then
+			TIMED_WAITING="0"
+		fi
+		WAITING=$(echo "$summaryCounts" | grep " WAITING$" | awk '{print $1}')
+		if [ -z "$WAITING" ]; then
+			WAITING="0"
+		fi
+		BLOCKED=$(echo "$summaryCounts" | grep " BLOCKED$" | awk '{print $1}')
+		if [ -z "$BLOCKED" ]; then
+			BLOCKED="0"
+		fi
+		echo "$summaryTime,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED" >> .tmp/thread-summaries.csv
+		#echo "DEBUG2: $summaryTime,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED"
+	done
+	#duplicate
+	START_TIME=$(head -2 .tmp/thread-summaries.csv | tail -1 | awk 'BEGIN{FS=","}{print $1}')
+	lastDaten1="$START_TIME"
+	echo "summaryTime,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED" > .tmp/thread-summaries.dup.csv
+	cat .tmp/thread-summaries.csv | tail -n +2 | sort -un | while read aline; do
+		myTime=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
+		while [ "$lastDaten1" -lt "$myTime" ]; do
+			echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
+			((lastDaten1++))
+		done
+		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 }')
+		echo "$aline" >> .tmp/thread-summaries.dup.csv
+		lastDaten1="$(($myTime+1))"
+	done
+	#source cvs2rrd
+	source ../csv2rrd/csv2rrd
+	#convert cvs2rrd
+	if [ -f ".tmp/thread-summaries.dup.rrd" ]; then
+		rm -rvf ".tmp/thread-summaries.dup.rrd"
+	fi
+	csv2rrd .tmp/thread-summaries.dup.csv .tmp/thread-summaries.dup.rrd
+	#graph cvs2rrd
+	buildGraph .tmp/thread-summaries.dup.rrd .tmp/cool.png "Thread Status"
+}
+
 function printReport(){
 
 	# BLOCKAGES...
@@ -303,11 +354,12 @@ function printReport(){
 	
 }
 
-normalizeStacks
+#normalizeStacks
 maxedOutThreads
 findBlockages
 findWait
 findLongRunning
+graphables
 
 printReport | tee -a "reports/Report-$(date +"%Y%m%d-%H%M%S").txt"
 
