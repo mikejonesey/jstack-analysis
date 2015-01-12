@@ -354,7 +354,7 @@ function printReport(){
 	
 }
 
-#normalizeStacks
+normalizeStacks
 maxedOutThreads
 findBlockages
 findWait
