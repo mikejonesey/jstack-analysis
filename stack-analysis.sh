@@ -4,7 +4,7 @@ if [ -f ".tmp/blocks.out" ]; then
   rm -rvf .tmp/blocks.out
 fi
 
-if [ 1 == 2 ]; then
+#if [ 1 == 2 ]; then
 if [ -f ".tmp/states.out" ]; then
   rm -rvf .tmp/states.out
 fi
@@ -22,7 +22,7 @@ find stacks/ -type f -name "stack-*.out" | while read af; do
 		fi
 	done
 done
-fi
+#fi
 
 function findBlockages(){
 	cat .tmp/states.out | grep ,BLOCKED, | awk 'BEGIN{FS=","}{print $3}' | sort -u | while read bNode; do
