@@ -1,8 +1,7 @@
 #!/bin/bash
 
 CUSTOM_EX_PREP="hybrisHTTP"
-# set max threads to max-20
-MAX_THREADS="340"
+MAX_THREADS="350"
 
 function maxedOutThreads(){
 	if [ -f ".tmp/maxed.out" ]; then
@@ -10,7 +9,7 @@ function maxedOutThreads(){
 	fi
 	find stacks/ -type f -name "stack-*.out" | while read af; do
 		threadCount=$(cat "$af" | grep "^\"$CUSTOM_EX_PREP" | wc -l)
-		if [ "$threadCount" -gt "$MAX_THREADS" ]; then
+		if [ "$threadCount" -gt "$(($MAX_THREADS-20))" ]; then
 			fileStamp=$(echo "$af" | sed -e 's/.*-//' -e 's/\..*//')
 			echo "Thread count warning at $(date -d @"$fileStamp" +"%D +%T") , thread count for $CUSTOM_EX_PREP was $threadCount" >> .tmp/maxed.out
 		fi 
@@ -29,6 +28,12 @@ function normalizeStacks(){
 			atREG=$(echo "$athread" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
 			procy=$(cat "$af" | grep "$atREG" -A 2 | tail -1 | sed 's/.*at //')
 			procyState=$(cat "$af" | grep "$atREG" -A 1 | tail -1 | awk '{print $2}')
+			if [ "$procyState" == "WAITING" ]; then
+				testSpare=$(cat "$af" | grep "$atREG" -A 5 | tail -1 | grep "org.apache.tomcat.util.net.JIoEndpoint")
+				if [ -n "$testSpare" ]; then
+					procyState="SPARE_WAITING"
+				fi
+			fi
 			if [ -n "$procy" -a -n "$procyState" ]; then
 				echo "$fileStamp,$procyState,$athread,$procy" >> .tmp/states.out
 			fi
@@ -50,7 +55,7 @@ function findBlockages(){
 				fileStamp=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 				#echo "Processing blockage at $fileStamp in thread \"$bNode\""
 				#echo "DEBUG:1001"
-				threadID=$(echo "$aline" | awk 'BEGIN{FS=","}{print $3}')
+				threadID=$(echo "$aline"WAITING | awk 'BEGIN{FS=","}{print $3}')
 				blockageStart=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 				blockedTask=$(echo "$aline" | sed 's/~LINEBREAK~/\n/g' | grep ",BLOCKED," -A 1 | head -1 | awk 'BEGIN{FS=","}{print $4}')
 				blockageEnd=$(echo "$ablock" | sed 's/~LINEBREAK~/\n/g' | grep ",BLOCKED," -A 1 | tail -1 | awk 'BEGIN{FS=","}{print $1}')
@@ -196,7 +201,7 @@ function findLongRunning(){
 }
 
 function graphables(){
-	echo "summaryTime,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED" > .tmp/thread-summaries.csv
+	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,MAXTHREADS" > .tmp/thread-summaries.csv
 
 	#produce csv's for csv2rrd
 	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $1}' | sort -u | sort -n | while read summaryTime; do
@@ -205,6 +210,10 @@ function graphables(){
 		RUNNABLE=$(echo "$summaryCounts" | grep " RUNNABLE$" | awk '{print $1}')
 		if [ -z "$RUNNABLE" ]; then
 			RUNNABLE="0"
+		fi
+		SPARE_WAITING=$(echo "$summaryCounts" | grep " SPARE_WAITING$" | awk '{print $1}')
+		if [ -z "$SPARE_WAITING" ]; then
+			SPARE_WAITING="0"
 		fi
 		TIMED_WAITING=$(echo "$summaryCounts" | grep " TIMED_WAITING$" | awk '{print $1}')
 		if [ -z "$TIMED_WAITING" ]; then
@@ -218,20 +227,20 @@ function graphables(){
 		if [ -z "$BLOCKED" ]; then
 			BLOCKED="0"
 		fi
-		echo "$summaryTime,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED" >> .tmp/thread-summaries.csv
+		echo "$summaryTime,$SPARE_WAITING,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED,$MAX_THREADS" >> .tmp/thread-summaries.csv
 		#echo "DEBUG2: $summaryTime,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED"
 	done
 	#duplicate
 	START_TIME=$(head -2 .tmp/thread-summaries.csv | tail -1 | awk 'BEGIN{FS=","}{print $1}')
 	lastDaten1="$START_TIME"
-	echo "summaryTime,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED" > .tmp/thread-summaries.dup.csv
+	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,MAXTHREADS" > .tmp/thread-summaries.dup.csv
 	cat .tmp/thread-summaries.csv | tail -n +2 | sort -un | while read aline; do
 		myTime=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 		while [ "$lastDaten1" -lt "$myTime" ]; do
 			echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
 			((lastDaten1++))
 		done
-		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 }')
+		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 "," $6 "," $7 }')
 		echo "$aline" >> .tmp/thread-summaries.dup.csv
 		lastDaten1="$(($myTime+1))"
 	done
