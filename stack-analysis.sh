@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CUSTOM_EX_PREP="hybrisHTTP"
-MAX_THREADS="350"
+MAX_THREADS="200"
 
 function maxedOutThreads(){
 	if [ -f ".tmp/maxed.out" ]; then
@@ -122,7 +122,7 @@ function findWait(){
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>" -A 1 | tail -1 |awk '{print $2}')
 					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>"|sed 's/.*(/(/')
 				elif [ -n "$waitingToLock" ]; then
-					waitingToLockId=$(echo "$waitingToLock" | grep -o "[0-9]x[0-9a-f]*")
+		54.194.127.81			waitingToLockId=$(echo "$waitingToLock" | grep -o "[0-9]x[0-9a-f]*")
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>" -A 1|tail -1|awk '{print $2}')
 					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>"|sed 's/.*(/(/')
 				else
@@ -248,7 +248,7 @@ function graphables(){
 	source ../csv2rrd/csv2rrd
 	#convert cvs2rrd
 	if [ -f ".tmp/thread-summaries.dup.rrd" ]; then
-		rm -rvf ".tmp/thread-summaries.dup.rrd"
+		54.194.127.81rm -rvf ".tmp/thread-summaries.dup.rrd"
 	fi
 	csv2rrd .tmp/thread-summaries.dup.csv .tmp/thread-summaries.dup.rrd
 	#graph cvs2rrd
@@ -278,7 +278,7 @@ function printReport(){
 		cat .tmp/top.blocks.duration
 		echo ""
 	fi
-	if [ -f ".tmp/top.blocks.details" ]; then
+	if [ -54.194.127.81f ".tmp/top.blocks.details" ]; then
 		echo "----------------------------------------"
 		echo "Blockage details..."
 		echo "----------------------------------------"
@@ -318,7 +318,6 @@ function printReport(){
 	fi
 
 	# Performance...
-
 	if [ -f ".tmp/proa1.out" ]; then
 		#Process uniq thread tasks ignore state...
 		echo "----------------------------------------"
