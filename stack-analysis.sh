@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CUSTOM_EX_PREP="hybrisHTTP"
-MAX_THREADS="200"
+MAX_THREADS="350"
 
 function maxedOutThreads(){
 	if [ -f ".tmp/maxed.out" ]; then
@@ -29,7 +29,7 @@ function normalizeStacks(){
 			procy=$(cat "$af" | grep "$atREG" -A 2 | tail -1 | sed 's/.*at //')
 			procyState=$(cat "$af" | grep "$atREG" -A 1 | tail -1 | awk '{print $2}')
 			if [ "$procyState" == "WAITING" ]; then
-				testSpare=$(cat "$af" | grep "$atREG" -A 5 | tail -1 | grep "org.apache.tomcat.util.net.JIoEndpoint")
+				testSpare=$(cat "$af" | grep "\"$atREG\"" -A 5 | egrep "(org.apache.tomcat.util.net.JIoEndpoint|a java.util.concurrent.locks.AbstractQueuedSynchronizer)")
 				if [ -n "$testSpare" ]; then
 					procyState="SPARE_WAITING"
 				fi
@@ -122,7 +122,7 @@ function findWait(){
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>" -A 1 | tail -1 |awk '{print $2}')
 					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>"|sed 's/.*(/(/')
 				elif [ -n "$waitingToLock" ]; then
-		54.194.127.81			waitingToLockId=$(echo "$waitingToLock" | grep -o "[0-9]x[0-9a-f]*")
+					waitingToLockId=$(echo "$waitingToLock" | grep -o "[0-9]x[0-9a-f]*")
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>" -A 1|tail -1|awk '{print $2}')
 					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>"|sed 's/.*(/(/')
 				else
@@ -201,7 +201,7 @@ function findLongRunning(){
 }
 
 function graphables(){
-	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,MAXTHREADS" > .tmp/thread-summaries.csv
+	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,$CUSTOM_EX_PREP,MAXTHREADS" > .tmp/thread-summaries.csv
 
 	#produce csv's for csv2rrd
 	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $1}' | sort -u | sort -n | while read summaryTime; do
@@ -227,20 +227,21 @@ function graphables(){
 		if [ -z "$BLOCKED" ]; then
 			BLOCKED="0"
 		fi
-		echo "$summaryTime,$SPARE_WAITING,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED,$MAX_THREADS" >> .tmp/thread-summaries.csv
+		CUSTOM="$(cat .tmp/states.out | grep "^$summaryTime," | grep ",$CUSTOM_EX_PREP" | wc -l)"
+		echo "$summaryTime,$SPARE_WAITING,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED,$CUSTOM,$MAX_THREADS" >> .tmp/thread-summaries.csv
 		#echo "DEBUG2: $summaryTime,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED"
 	done
 	#duplicate
 	START_TIME=$(head -2 .tmp/thread-summaries.csv | tail -1 | awk 'BEGIN{FS=","}{print $1}')
 	lastDaten1="$START_TIME"
-	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,MAXTHREADS" > .tmp/thread-summaries.dup.csv
+	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,$CUSTOM_EX_PREP,MAXTHREADS" > .tmp/thread-summaries.dup.csv
 	cat .tmp/thread-summaries.csv | tail -n +2 | sort -un | while read aline; do
 		myTime=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 		while [ "$lastDaten1" -lt "$myTime" ]; do
 			echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
 			((lastDaten1++))
 		done
-		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 "," $6 "," $7 }')
+		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 "," $6 "," $7 "," $8 }')
 		echo "$aline" >> .tmp/thread-summaries.dup.csv
 		lastDaten1="$(($myTime+1))"
 	done
@@ -248,7 +249,7 @@ function graphables(){
 	source ../csv2rrd/csv2rrd
 	#convert cvs2rrd
 	if [ -f ".tmp/thread-summaries.dup.rrd" ]; then
-		54.194.127.81rm -rvf ".tmp/thread-summaries.dup.rrd"
+		rm -rvf ".tmp/thread-summaries.dup.rrd"
 	fi
 	csv2rrd .tmp/thread-summaries.dup.csv .tmp/thread-summaries.dup.rrd
 	#graph cvs2rrd
@@ -278,7 +279,7 @@ function printReport(){
 		cat .tmp/top.blocks.duration
 		echo ""
 	fi
-	if [ -54.194.127.81f ".tmp/top.blocks.details" ]; then
+	if [ -f ".tmp/top.blocks.details" ]; then
 		echo "----------------------------------------"
 		echo "Blockage details..."
 		echo "----------------------------------------"
