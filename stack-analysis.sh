@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CUSTOM_EX_PREP="hybrisHTTP"
-MAX_THREADS="350"
+MAX_THREADS="450"
 
 function maxedOutThreads(){
 	if [ -f ".tmp/maxed.out" ]; then
@@ -253,6 +253,9 @@ function graphables(){
 	fi
 	csv2rrd .tmp/thread-summaries.dup.csv .tmp/thread-summaries.dup.rrd
 	#graph cvs2rrd
+	if [ -f ".tmp/cool.png" ]; then
+		rm .tmp/cool.png
+	fi
 	buildGraph .tmp/thread-summaries.dup.rrd .tmp/cool.png "Thread Status"
 }
 
