@@ -1,14 +1,14 @@
 #!/bin/bash
 
-CUSTOM_EX_PREP="hybrisHTTP"
-MAX_THREADS="450"
+CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor)"
+MAX_THREADS="300"
 
 function maxedOutThreads(){
 	if [ -f ".tmp/maxed.out" ]; then
 	  rm -rvf .tmp/maxed.out
 	fi
 	find stacks/ -type f -name "stack-*.out" | while read af; do
-		threadCount=$(cat "$af" | grep "^\"$CUSTOM_EX_PREP" | wc -l)
+		threadCount=$(cat "$af" | egrep "^\"$CUSTOM_EX_PREP" | wc -l)
 		if [ "$threadCount" -gt "$(($MAX_THREADS-20))" ]; then
 			fileStamp=$(echo "$af" | sed -e 's/.*-//' -e 's/\..*//')
 			echo "Thread count warning at $(date -d @"$fileStamp" +"%D +%T") , thread count for $CUSTOM_EX_PREP was $threadCount" >> .tmp/maxed.out
@@ -29,7 +29,7 @@ function normalizeStacks(){
 			procy=$(cat "$af" | grep "$atREG" -A 2 | tail -1 | sed 's/.*at //')
 			procyState=$(cat "$af" | grep "$atREG" -A 1 | tail -1 | awk '{print $2}')
 			if [ "$procyState" == "WAITING" ]; then
-				testSpare=$(cat "$af" | grep "\"$atREG\"" -A 5 | egrep "(org.apache.tomcat.util.net.JIoEndpoint|a java.util.concurrent.locks.AbstractQueuedSynchronizer)")
+				testSpare=$(cat "$af" | grep "\"$atREG\"" -A 5 | egrep "(org.apache.tomcat.util.net.JIoEndpoint|a java.util.concurrent.locks.AbstractQueuedSynchronizer|org.apache.tomcat.util.threads.ThreadPool\\\$ControlRunnable)")
 				if [ -n "$testSpare" ]; then
 					procyState="SPARE_WAITING"
 				fi
@@ -184,7 +184,12 @@ function findWait(){
 #			echo "Thread: $threadName was waiting for $blockDuration secconds, from: $blockStart to: $blockEnd"
 #		done | tac | head -n 25 | nl > .tmp/top.waits.duration
 
-cat .tmp/waits.out | sort -k3,3 -t, -n | tail -25 | tac | awk 'BEGIN{FS=","}{print "Thread: "$4" was waiting for "$3" secconds, from: "$1" to: "$2}' | nl > .tmp/top.waits.duration
+		cat .tmp/waits.out | sort -k3,3 -t, -n | tail -25 | tac | while read aline; do
+			startTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}') +"%Y-%m-%d %T")
+			endTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $2}') +"%Y-%m-%d %T")
+			stringStart=$(echo "$aline" | awk 'BEGIN{FS=","}{print "Thread: "$4" was waiting for "$3" secconds, from:"}')
+			echo "$stringStart $startTime to: $endTime"
+		done | nl  > .tmp/top.waits.duration
 
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $5}' | sort | uniq -c | sort -n | tac | sed 's/.*[0-9] //' | while read aline; do
 			echo "    Wait: $aline, was caused by: "
@@ -200,7 +205,7 @@ function findLongRunning(){
 	fi
 
 	#Process uniq thread tasks ignore state...
-	cat .tmp/states.out | grep "$CUSTOM_EX_PREP" | grep -vE "(sun.misc.Unsafe.park)" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
+	cat .tmp/states.out | egrep "$CUSTOM_EX_PREP" | grep -vE "(sun.misc.Unsafe.park)" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
 		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
 		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
 		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
@@ -245,7 +250,7 @@ function findLongRunning(){
 }
 
 function graphables(){
-	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,$CUSTOM_EX_PREP,MAXTHREADS" > .tmp/thread-summaries.csv
+	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,$(echo "$CUSTOM_EX_PREP" | sed -e 's/|/_/g' -e 's/[^a-zA-Z0-9_]//g'),MAXTHREADS" > .tmp/thread-summaries.csv
 
 	#produce csv's for csv2rrd
 	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $1}' | sort -u | sort -n | while read summaryTime; do
@@ -271,14 +276,14 @@ function graphables(){
 		if [ -z "$BLOCKED" ]; then
 			BLOCKED="0"
 		fi
-		CUSTOM="$(cat .tmp/states.out | grep "^$summaryTime," | grep ",$CUSTOM_EX_PREP" | wc -l)"
+		CUSTOM="$(cat .tmp/states.out | grep "^$summaryTime," | egrep ",$CUSTOM_EX_PREP" | wc -l)"
 		echo "$summaryTime,$SPARE_WAITING,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED,$CUSTOM,$MAX_THREADS" >> .tmp/thread-summaries.csv
 		#echo "DEBUG2: $summaryTime,$RUNNABLE,$TIMED_WAITING,$WAITING,$BLOCKED"
 	done
 	#duplicate
 	START_TIME=$(head -2 .tmp/thread-summaries.csv | tail -1 | awk 'BEGIN{FS=","}{print $1}')
 	lastDaten1="$START_TIME"
-	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,$CUSTOM_EX_PREP,MAXTHREADS" > .tmp/thread-summaries.dup.csv
+	echo "summaryTime,SPARE,RUNNABLE,TIMEDWAITING,WAITING,BLOCKED,$(echo "$CUSTOM_EX_PREP" | sed -e 's/|/_/g' -e 's/[^a-zA-Z0-9_]//g'),MAXTHREADS" > .tmp/thread-summaries.dup.csv
 	cat .tmp/thread-summaries.csv | tail -n +2 | sort -un | while read aline; do
 		myTime=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 		while [ "$lastDaten1" -lt "$myTime" ]; do
@@ -410,12 +415,12 @@ function printReport(){
 	
 }
 
-#normalizeStacks
-#maxedOutThreads
-#findBlockages
+normalizeStacks
+maxedOutThreads
+findBlockages
 findWait
-#findLongRunning
-#graphables
+findLongRunning
+graphables
 
 printReport | tee -a "reports/Report-$(date +"%Y%m%d-%H%M%S").txt"
 
