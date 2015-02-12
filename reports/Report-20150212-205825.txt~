@@ -1,0 +1,54 @@
+----------------------------------------
+Top blocked process...
+
+      2 de.hybris.platform.persistence.framework.RemoteInvocationHandler.performOther(RemoteInvocationHandler.java:181)
+
+Top occuring blockages causes...
+
+      2 de.hybris.platform.persistence.framework.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:107)
+
+Longest blocked processes...
+
+     1	Thread: ajp-bio-8009-exec-10513 was blocked for 0 secconds, from: 02/12/15 20:47:16 to: 02/12/15 20:47:16
+
+----------------------------------------
+Blockage details...
+----------------------------------------
+
+    Blockage: de.hybris.platform.persistence.framework.RemoteInvocationHandler.performOther(RemoteInvocationHandler.java:181), was caused by: 
+      2 de.hybris.platform.persistence.framework.RemoteInvocationHandler.invoke(RemoteInvocationHandler.java:107) locking the resource "(a de.hybris.platform.persistence.framework.PKSyncUtils$PKSyncObject)"
+
+
+----------------------------------------
+Top waiting process...
+
+      5 java.lang.Object.wait(Native Method)
+
+Top occuring wait causes...
+
+      2 Unexplained Mystery
+      2 java.util.TimerThread.run(Timer.java:505)
+      1 java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151)
+
+Longest waiting processes...
+
+     1	Thread: Timer-1 was waiting for 96 secconds, from: 2015-02-12 20:46:58 to: 2015-02-12 20:48:34
+     2	Thread: Thread-6 was waiting for 96 secconds, from: 2015-02-12 20:46:58 to: 2015-02-12 20:48:34
+     3	Thread: RMI Reaper was waiting for 96 secconds, from: 2015-02-12 20:46:58 to: 2015-02-12 20:48:34
+     4	Thread: Reference Handler was waiting for 96 secconds, from: 2015-02-12 20:46:58 to: 2015-02-12 20:48:34
+     5	Thread: net.sf.ehcache.CacheManager@53f6f6c2 was waiting for 96 secconds, from: 2015-02-12 20:46:58 to: 2015-02-12 20:48:34
+
+----------------------------------------
+Long Wait details...
+----------------------------------------
+
+    Wait: java.lang.Object.wait(Native Method), was caused by: 
+      2 java.util.TimerThread.run(Timer.java:505) locking the resource "(a java.util.TaskQueue)"
+      1 _Unknown_ locking the resource "(a java.lang.Object)"
+      1 _Unknown_ locking the resource ""
+      1 java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151) locking the resource "(a java.lang.ref.ReferenceQueue$Lock)"
+
+
+----------------------------------------
+Longest time process...
+----------------------------------------

@@ -287,7 +287,11 @@ function graphables(){
 	cat .tmp/thread-summaries.csv | tail -n +2 | sort -un | while read aline; do
 		myTime=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 		while [ "$lastDaten1" -lt "$myTime" ]; do
-			echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
+			if [ -n "$lastData" ]; then
+				echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
+			else
+				echo "skipping..."
+			fi
 			((lastDaten1++))
 		done
 		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 "," $6 "," $7 "," $8 }')
@@ -415,7 +419,7 @@ function printReport(){
 	
 }
 
-normalizeStacks
+#normalizeStacks
 maxedOutThreads
 findBlockages
 findWait
