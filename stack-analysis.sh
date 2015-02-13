@@ -292,7 +292,11 @@ function graphables(){
 			if [ -n "$lastData" ]; then
 				echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
 			else
+<<<<<<< HEAD
 				echo "skipping csv data...."
+=======
+				echo "skipping..."
+>>>>>>> ad2b0f038bbb7ff2236a8449055bdc26465d689d
 			fi
 			((lastDaten1++))
 		done
