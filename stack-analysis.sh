@@ -1,7 +1,9 @@
 #!/bin/bash
 
 CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor)"
-MAX_THREADS="300"
+MAX_THREADS="450"
+
+read -p "Max Threads: " MAX_THREADS
 
 function maxedOutThreads(){
 	if [ -f ".tmp/maxed.out" ]; then
@@ -287,7 +289,11 @@ function graphables(){
 	cat .tmp/thread-summaries.csv | tail -n +2 | sort -un | while read aline; do
 		myTime=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
 		while [ "$lastDaten1" -lt "$myTime" ]; do
-			echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
+			if [ -n "$lastData" ]; then
+				echo "$lastDaten1,$lastData" >> .tmp/thread-summaries.dup.csv
+			else
+				echo "skipping csv data...."
+			fi
 			((lastDaten1++))
 		done
 		lastData=$(echo "$aline" | awk 'BEGIN{FS=","}{print $2 "," $3 "," $4 "," $5 "," $6 "," $7 "," $8 }')
@@ -345,7 +351,7 @@ function printReport(){
 	if [ -f ".tmp/top.waits.procs" ]; then
 		echo "----------------------------------------"
 		echo "Top waiting process..."
-		echo ""
+		echo ""1423736520,WAITING,hybrisHTTP45,java.lang.Object.wait
 		cat .tmp/top.waits.procs
 		echo ""
 	fi

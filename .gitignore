@@ -19,3 +19,5 @@ top.blocks.details
 top.blocks.duration
 cool.png
 stack-analysis.sh~
+archive/*
+reports/*
