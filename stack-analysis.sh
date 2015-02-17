@@ -3,6 +3,9 @@
 CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor)"
 MAX_THREADS="450"
 
+#Mac Osx has no tac utility;
+alias tac="tail -r"
+
 read -p "Max Threads: " MAX_THREADS
 
 function maxedOutThreads(){
