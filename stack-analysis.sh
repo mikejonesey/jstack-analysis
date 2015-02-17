@@ -3,7 +3,8 @@
 CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor)"
 MAX_THREADS="450"
 
-#Mac Osx has no tac utility;
+# Mac Osx has no tac utility;
+# as an alternate to this alias you can install tac from coreutils, using macports or homebrew/brew
 alias tac="tail -r"
 
 read -p "Max Threads: " MAX_THREADS
