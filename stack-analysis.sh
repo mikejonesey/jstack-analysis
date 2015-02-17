@@ -433,7 +433,7 @@ maxedOutThreads
 findBlockages
 findWait
 findLongRunning
-graphables
+#graphables
 
 printReport | tee -a "reports/Report-$(date +"%Y%m%d-%H%M%S").txt"
 
