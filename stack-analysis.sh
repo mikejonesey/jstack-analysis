@@ -8,6 +8,8 @@ MAX_THREADS="450"
 # alias tac="tail -r"
 # alias does not work, so swapped all tac for tail -r...
 
+# date tries to update the system date by default on a mac, adding -j prevents this...
+
 read -p "Max Threads: " MAX_THREADS
 
 function maxedOutThreads(){
@@ -18,7 +20,7 @@ function maxedOutThreads(){
 		threadCount=$(cat "$af" | egrep "^\"$CUSTOM_EX_PREP" | wc -l)
 		if [ "$threadCount" -gt "$(($MAX_THREADS-20))" ]; then
 			fileStamp=$(echo "$af" | sed -e 's/.*-//' -e 's/\..*//')
-			echo "Thread count warning at $(date -d @"$fileStamp" +"%D +%T") , thread count for $CUSTOM_EX_PREP was $threadCount" >> .tmp/maxed.out
+			echo "Thread count warning at $(date -j -d @"$fileStamp" +"%D +%T") , thread count for $CUSTOM_EX_PREP was $threadCount" >> .tmp/maxed.out
 		fi 
 	done
 }
@@ -111,8 +113,8 @@ function findBlockages(){
 		i=0; cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $2 " " $1}' | sort | while read aline; do if [ "$lastID" != "$(echo "$aline" | awk '{print $1}')" -a "$i" -gt "0" ]; then echo "$lastID $ID_START_TIME $ID_LAST_TIME $(($ID_LAST_TIME-$ID_START_TIME))"; ID_START_TIME=$(echo "$aline" | awk '{print $2}'); elif [ "$i" == "0" ]; then ID_START_TIME=$(echo "$aline" | awk '{print $2}'); fi; ((i++)); ID_LAST_TIME=$(echo "$aline" | awk '{print $2}'); lastID="$(echo "$aline" | awk '{print $1}')"; if [ "$i" == "20" ]; then echo "$lastID $ID_START_TIME $ID_LAST_TIME $(($ID_LAST_TIME-$ID_START_TIME))"; fi; done | sort -n -k4 | while read athread; do
 			threadName=$(echo "$athread" | awk '{print $1}')
 			blockDuration=$(echo "$athread" | awk '{print $4}')
-			blockStart=$(date -d @$(echo "$athread" | awk '{print $2}') +"%D %T")
-			blockEnd=$(date -d @$(echo "$athread" | awk '{print $3}') +"%D %T")
+			blockStart=$(date -j -d @$(echo "$athread" | awk '{print $2}') +"%D %T")
+			blockEnd=$(date -j -d @$(echo "$athread" | awk '{print $3}') +"%D %T")
 			echo "Thread: $threadName was blocked for $blockDuration secconds, from: $blockStart to: $blockEnd"
 		done | tail -r | head -n 25 | nl > .tmp/top.blocks.duration
 		cat .tmp/blocks.out | awk 'BEGIN{FS=","}{print $3}' | sort | uniq -c | sort -n | tail -r | sed 's/.*[0-9] //' | while read aline; do
@@ -191,8 +193,8 @@ function findWait(){
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $5}' | sort | uniq -c | sort -n | tail -r > .tmp/top.waits.procs
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $6}' | sort | sed 's/^$/Unexplained Mystery/' | uniq -c | sort -n | tail -r > .tmp/top.waits.cause
 		cat .tmp/waits.out | sort -k3,3 -t, -n | tail -25 | tail -r | while read aline; do
-			startTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}') +"%Y-%m-%d %T")
-			endTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $2}') +"%Y-%m-%d %T")
+			startTime=$(date -j -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}') +"%Y-%m-%d %T")
+			endTime=$(date -j -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $2}') +"%Y-%m-%d %T")
 			stringStart=$(echo "$aline" | awk 'BEGIN{FS=","}{print "Thread: "$4" was waiting for "$3" secconds, from:"}')
 			echo "$stringStart $startTime to: $endTime"
 		done | nl  > .tmp/top.waits.duration
@@ -218,7 +220,7 @@ function findLongRunning(){
 		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
 		((threadStart--))
 		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -j -d @"$threadStart" +"%Y-%m-%d %T"),$(date -j -d @"$threadEnd" +"%Y-%m-%d %T")"
 	done | sort -n | tail -30 | tail -r | tee -a .tmp/proa1.out
 
 #	#Process longest thread proc running...
@@ -229,7 +231,7 @@ function findLongRunning(){
 #		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
 #		((threadStart--))
 #		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -j -d @"$threadStart" +"%Y-%m-%d %T"),$(date -j -d @"$threadEnd" +"%Y-%m-%d %T")"
 #	done | sort -n | tail -10 | tail -r | tee -a .tmp/proa3.out
 #
 #	#Process longest proc running...
@@ -240,7 +242,7 @@ function findLongRunning(){
 #		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
 #		((threadStart--))
 #		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -j -d @"$threadStart" +"%Y-%m-%d %T"),$(date -j -d @"$threadEnd" +"%Y-%m-%d %T")"
 #	done | sort -n | tail -10 | tail -r | tee -a .tmp/proa5.out
 #
 #	#Process procs...
@@ -251,7 +253,7 @@ function findLongRunning(){
 #		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
 #		((threadStart--))
 #		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
+#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -j -d @"$threadStart" +"%Y-%m-%d %T"),$(date -j -d @"$threadEnd" +"%Y-%m-%d %T")"
 #	done | sort -n | tail -10 | tail -r | tee -a .tmp/proa6.out
 }
 
@@ -432,5 +434,5 @@ findWait
 findLongRunning
 #graphables
 
-printReport | tee -a "reports/Report-$(date +"%Y%m%d-%H%M%S").txt"
+printReport | tee -a "reports/Report-$(date -j +"%Y%m%d-%H%M%S").txt"
 
