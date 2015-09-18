@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor)"
+CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor|ajp-bio-8009-exec-|ajp-bio-8010-exec-)"
 MAX_THREADS="450"
 
 read -p "Max Threads: " MAX_THREADS
