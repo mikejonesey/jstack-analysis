@@ -146,7 +146,7 @@ function findWait(){
 				#echo "DEBUG:1002"
 				threadID=$(echo "$aline" | awk 'BEGIN{FS=","}{print $3}')
 				blockageStart=$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}')
-				blockedTask=$(echo "$aline" | sed 's/~LINEBREAK~/\n/g' | grep ",WAITING," -A 1 | head -1 | awk 'BEGIN{FS=","}{print $4}')
+				blockedTask=$(echo "$aline" | sed 's/~LINEBREAK~/\n/g' | grep ",WAITING," | head -1 | awk 'BEGIN{FS=","}{print $4}')
 				blockageEnd=$(echo "$ablock" | sed 's/~LINEBREAK~/\n/g' | grep ",WAITING," -A 1 | tail -1 | awk 'BEGIN{FS=","}{print $1}')
 				if [ -z "$blockageEnd" ]; then
 					blockageEnd="$blockageStart"
@@ -160,11 +160,11 @@ function findWait(){
 				if [ -n "$waitingOn" ]; then
 					waitingOnId=$(echo "$waitingOn" | grep -o "[0-9]x[0-9a-f]*")
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>" -B 1 | head -1 |awk '{print $2}')
-					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>"|sed 's/.*(/(/')
+					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>"|sed 's/.*(/(/' | head -1)
 				elif [ -n "$waitingToLock" ]; then
 					waitingToLockId=$(echo "$waitingToLock" | grep -o "[0-9]x[0-9a-f]*")
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>" -B 1|head -1|awk '{print $2}')
-					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>"|sed 's/.*(/(/')
+					desiredResource=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingToLockId>"|sed 's/.*(/(/' | head -1)
 				elif [ -n "$parkingToWaitFor" ]; then
 					parkingToWaitForId=$(echo "$parkingToWaitFor" | grep -o "[0-9]x[0-9a-f]*")
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$parkingToWaitForId>" -B 1|head -1|awk '{print $2}')

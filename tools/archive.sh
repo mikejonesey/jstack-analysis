@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ../
+
 read -p "Archive Name: " archName
 
 newArchive=$(echo "$archName" | sed -e 's/ /_/g' -e 's/[^a-zA-Z0-9_-]//g')"_"$(date +"%s")
