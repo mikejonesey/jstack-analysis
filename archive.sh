@@ -7,4 +7,6 @@ newArchive=$(echo "$archName" | sed -e 's/ /_/g' -e 's/[^a-zA-Z0-9_-]//g')"_"$(d
 mkdir -p archive/$newArchive
 
 find stacks -type f -iname "stack-*.out" -exec mv '{}' archive/$newArchive/ \;
+mv .tmp/cool.png archive/$newArchive/states.png
+mv reports/$(ls -rt reports | tail -1) archive/$newArchive/
 
