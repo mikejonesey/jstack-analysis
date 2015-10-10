@@ -1,6 +1,7 @@
 #!/bin/bash
 
-CUSTOM_EX_PREP="(hybrisHTTP|TP-Processor|ajp-bio-8010-exec-|ajp-bio-8009-exec-)"
+STD_EX_PREP="TP-Processor|ajp-bio-8009-exec-|ajp-bio-8010-exec-"
+CUSTOM_EX_PREP="(hybrisHTTP|$STD_EX_PREP)"
 MAX_THREADS="450"
 
 read -p "Max Threads: " MAX_THREADS
@@ -35,6 +36,11 @@ function normalizeStacks(){
 				if [ -n "$testSpare" ]; then
 					procyState="SPARE_WAITING"
 				fi
+			elif [ "$procyState" == "RUNNABLE" ]; then
+				testAJPWAIT=$(cat "$af" | grep "\"$atREG\"" -A 8 | egrep "(org.apache.coyote.ajp.AjpProcessor.read)")
+				if [ -n "$testAJPWAIT" ]; then
+					procyState="AJP_WAITING"
+				fi				
 			fi
 			if [ -n "$procy" -a -n "$procyState" ]; then
 				echo "$fileStamp,$procyState,$athread,$procy" >> .tmp/states.out
@@ -214,7 +220,7 @@ function findLongRunning(){
 	fi
 
 	#Process uniq thread tasks ignore state...
-	cat .tmp/states.out | egrep "$CUSTOM_EX_PREP" | grep -vE "(sun.misc.Unsafe.park)" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
+	cat .tmp/states.out | egrep "$CUSTOM_EX_PREP" | grep -vE "(sun.misc.Unsafe.park|AJP_WAITING)" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
 		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
 		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
 		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
