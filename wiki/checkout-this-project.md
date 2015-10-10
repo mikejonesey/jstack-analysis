@@ -6,7 +6,7 @@
 2. Checkout the project:
 
 > cd ~/stack-check
-> git clone https://gitlab.mikejonesey.co.uk/java/stack-analysis.git
+> git clone https://github.com/mikejonesey/jstack-analysis.git
 
 3. If you don't want to setup rrdtool, comment out the "graphables" function call near the bottom of stack-analysis.sh
 
@@ -20,7 +20,7 @@
 4. If you do want rrdtool graphs, checkout the csv2rrd project into the same working directory.
 
 > cd ~/stack-check
-> git clone https://gitlab.mikejonesey.co.uk/linux-tools/csv2rrd.git
+> git clone https://github.com/mikejonesey/csv2rrd.git
 
 # Mac users
 If you are using a mac, some of the unix tools vary, checkout the macosx branch for support with the default mac toolset.

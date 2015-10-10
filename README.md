@@ -2,8 +2,8 @@
 This project is for analysing java stack traces, the project is usefull for quickly getting an overview of a jvm's state, or as a tool for analysing states over a long time. The tool currenly identifies core issues to performance, further analysis of the identified issues is then required.
 
 # Instructions for running:
-1. [checkout this project](wiki/checkout-this-project)
-2. [generate some stack traces](wiki/generate-stack-traces) and place them into the ./stacks dir.
+1. [checkout this project](wiki/checkout-this-project.md)
+2. [generate some stack traces](wiki/generate-stack-traces.md) and place them into the ./stacks dir.
 3. run the ./stack-analysis.sh script
 
 # Structure
