@@ -191,13 +191,6 @@ function findWait(){
 	if [ -f ".tmp/waits.out" ]; then
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $5}' | sort | uniq -c | sort -n | tac > .tmp/top.waits.procs
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $6}' | sort | sed 's/^$/Unexplained Mystery/' | uniq -c | sort -n | tac > .tmp/top.waits.cause
-#		i=0; cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $4 " " $1}' | sort | while read aline; do if [ "$lastID" != "$(echo "$aline" | awk '{print $1}')" -a "$i" -gt "0" ]; then echo "$lastID $ID_START_TIME $ID_LAST_TIME $(($ID_LAST_TIME-$ID_START_TIME))"; ID_START_TIME=$(echo "$aline" | awk '{print $2}'); elif [ "$i" == "0" ]; then ID_START_TIME=$(echo "$aline" | awk '{print $2}'); fi; ((i++)); ID_LAST_TIME=$(echo "$aline" | awk '{print $2}'); lastID="$(echo "$aline" | awk '{print $1}')"; if [ "$i" == "20" ]; then echo "$lastID $ID_START_TIME $ID_LAST_TIME $(($ID_LAST_TIME-$ID_START_TIME))"; fi; done | sort -n -k4 | while read athread; do
-#			threadName=$(echo "$athread" | awk '{print $1}')
-#			blockDuration=$(echo "$athread" | awk '{print $4}')
-#			blockStart=$(date -d @$(echo "$athread" | awk '{print $2}') +"%D %T")
-#			blockEnd=$(date -d @$(echo "$athread" | awk '{print $3}') +"%D %T")
-#			echo "Thread: $threadName was waiting for $blockDuration secconds, from: $blockStart to: $blockEnd"
-#		done | tac | head -n 25 | nl > .tmp/top.waits.duration
 
 		cat .tmp/waits.out | sort -k3,3 -t, -n | tail -25 | tac | while read aline; do
 			startTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}') +"%Y-%m-%d %T")
@@ -229,39 +222,6 @@ function findLongRunning(){
 		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
 		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
 	done | sort -n | tail -30 | tac | tee -a .tmp/proa1.out
-
-#	#Process longest thread proc running...
-#	cat .tmp/states.out | grep "RUNNING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
-#		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
-#		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
-#		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
-#		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
-#		((threadStart--))
-#		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
-#	done | sort -n | tail -10 | tac | tee -a .tmp/proa3.out
-#
-#	#Process longest proc running...
-#	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
-#		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
-#		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
-#		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
-#		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
-#		((threadStart--))
-#		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
-#	done | sort -n | tail -10 | tac | tee -a .tmp/proa5.out
-#
-#	#Process procs...
-#	cat .tmp/states.out | grep "WAITING" | awk 'BEGIN{FS=","}{print $3 "," $4}' | sort -u | while read uniqTask; do
-#		threadIDP=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $1}')
-#		threadID=$(echo "$threadIDP" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
-#		threadProcess=$(echo "$uniqTask" | awk 'BEGIN{FS=","}{print $2}')
-#		threadStart=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | head -1 | sed 's/,.*//')
-#		((threadStart--))
-#		threadEnd=$(cat .tmp/states.out |grep "$uniqTask" | sort -n | tail -1 | sed 's/,.*//')
-#		echo "$(echo "$threadEnd-$threadStart" | bc),$threadIDP,$threadProcess,$(date -d @"$threadStart" +"%Y-%m-%d %T"),$(date -d @"$threadEnd" +"%Y-%m-%d %T")"
-#	done | sort -n | tail -10 | tac | tee -a .tmp/proa6.out
 }
 
 function graphables(){
