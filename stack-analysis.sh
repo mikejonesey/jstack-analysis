@@ -382,7 +382,7 @@ function printReport(){
 	fi
 
 	# Performance...
-	if [ -f ".tmp/proa1.out" ]; then
+	if [ -a ".tmp/proa1.out" ]; then
 		#Process uniq thread tasks ignore state...
 		echo "----------------------------------------"
 		echo "Longest time process..."
@@ -423,6 +423,56 @@ function printReport(){
 		echo "----------------------------------------"
 		cat .tmp/maxed.out
 	fi
+
+	# CPU INFO
+	echo "##################################################"
+	echo "# CPU Info"
+	echo "##################################################"
+
+	#Cumulative CPU by date and time...
+	echo "----------------------------------------"	
+	echo "Cumulative CPU by date and time..."
+	echo "----------------------------------------"
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $1 "," $5}' | awk 'BEGIN{FS=","} END {PROCINFO["sorted_in"] = "@ind_str_asc"; for (E in a) print E, a[E]}{ a[$1] += $2 }' | sort -n | while read aline; do date1=$(date -d @$(echo "$aline" | awk '{print $1}') +"%D %T"); echo "$date1 $(echo "$aline" | awk '{print $2}')"; done
+	echo
+
+	#Highest Cumulative CPU by thread...
+	echo "----------------------------------------"	
+	echo "Top Cumulative CPU by thread..."
+	echo "----------------------------------------"
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $3 "," $5}' | awk 'BEGIN{FS=","} END {PROCINFO["sorted_in"] = "@ind_str_asc"; for (E in a) print a[E], E}{ a[$1] += $2 }' | sort -n | tac | head -10
+	echo
+
+	#Highest Cumulative CPU by state...
+	echo "----------------------------------------"	
+	echo "Top Cumulative CPU by thread state..."
+	echo "----------------------------------------"
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $2 "," $5}' | awk 'BEGIN{FS=","} END {PROCINFO["sorted_in"] = "@ind_str_asc"; for (E in a) print a[E], E}{ a[$1] += $2 }' | sort -n | tac | head -10
+	echo
+
+	#CPU by process
+	echo "----------------------------------------"	
+	echo "Top Cumulative CPU by process..."
+	echo "----------------------------------------"
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $4 "," $5}' | awk 'BEGIN{FS=","} END {PROCINFO["sorted_in"] = "@ind_str_asc"; for (E in a) print a[E], E}{ a[$1] += $2 }' | sort -n | tac | head -10
+	echo
+
+	#Page Faults
+	echo "##################################################"
+	echo "# Memory Info"
+	echo "##################################################"
+
+	echo "----------------------------------------"	
+	echo "Top Process loading from disk to memory"
+	echo "----------------------------------------"	
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $4 "," $6}' | awk 'BEGIN{FS=","} END {PROCINFO["sorted_in"] = "@ind_str_asc"; for (E in a) print a[E], E}{ a[$1] += $2 }' | sort -n | tac | head -10
+	echo
+
+	echo "----------------------------------------"	
+	echo "Top Threads loading from disk to memory"
+	echo "----------------------------------------"	
+	cat .tmp/states.out | awk 'BEGIN{FS=","}{print $3 "," $6}' | awk 'BEGIN{FS=","} END {PROCINFO["sorted_in"] = "@ind_str_asc"; for (E in a) print a[E], E}{ a[$1] += $2 }' | sort -n | tac | head -10
+	echo
 	
 }
 
