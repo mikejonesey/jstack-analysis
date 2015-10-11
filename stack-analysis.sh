@@ -31,6 +31,8 @@ function normalizeStacks(){
 			atREG=$(echo "$athread" | sed -e 's/\[/\\[/' -e 's/\]/\\]/')
 			procy=$(cat "$af" | grep "$atREG" -A 2 | tail -1 | sed 's/.*at //')
 			procyState=$(cat "$af" | grep "$atREG" -A 1 | tail -1 | awk '{print $2}')
+			procyPcpu=$(cat "$af" | grep "$atREG" | grep "pcpu=" | sed -e 's/.*pcpu=//' -e 's/ .*//')
+			procyPF=$(cat "$af" | grep "$atREG" | grep " page=" | sed -e 's/.* page=//' -e 's/ .*//')
 			if [ "$procyState" == "WAITING" ]; then
 				testSpare=$(cat "$af" | grep "\"$atREG\"" -A 5 | egrep "(org.apache.tomcat.util.net.JIoEndpoint|a java.util.concurrent.locks.AbstractQueuedSynchronizer|org.apache.tomcat.util.threads.ThreadPool\\\$ControlRunnable)")
 				if [ -n "$testSpare" ]; then
@@ -43,7 +45,7 @@ function normalizeStacks(){
 				fi				
 			fi
 			if [ -n "$procy" -a -n "$procyState" ]; then
-				echo "$fileStamp,$procyState,$athread,$procy" >> .tmp/states.out
+				echo "$fileStamp,$procyState,$athread,$procy,$procyPcpu,$procyPF" >> .tmp/states.out
 			fi
 		done
 	done
@@ -141,7 +143,7 @@ function findWait(){
 	  rm -rvf .tmp/top.waits.procs
 	fi
 
-	cat .tmp/states.out | grep ,WAITING, | awk 'BEGIN{FS=","}{print $3}' | sort -u | while read bNode; do
+	cat .tmp/states.out | grep ,WAITING, | grep -vE "(AJP_WAITING)" | awk 'BEGIN{FS=","}{print $3}' | sort -u | while read bNode; do
 		echo "Processing waits in thread $bNode"
 		cat .tmp/states.out | grep "$bNode" | sort -n | sed -e 's/,RUNNABLE,\(.*\)/,RUNNABLE,\1\n~ENDBLOCK~/g' | sed  -e ':amoo;N;$!bamoo;s/\n/~LINEBREAK~/g' -e 's/~ENDBLOCK~/\n/g' | sed 's/^~LINEBREAK~//' | grep ",WAITING," | while read ablock; do
 			i=1
@@ -163,6 +165,7 @@ function findWait(){
 				waitingOn=$(cat "stacks/stack-$fileStamp.out" | grep "^\"$threadID\"" -A 3 | tail -1 | grep "waiting on")
 				waitingToLock=$(cat "stacks/stack-$fileStamp.out" | grep "^\"$threadID\"" -A 3 | tail -1 | grep "waiting to lock")
 				parkingToWaitFor=$(cat "stacks/stack-$fileStamp.out" | grep "^\"$threadID\"" -A 3 | tail -1 | grep "parking to wait for")
+				objectMonitor=$(cat "stacks/stack-$fileStamp.out" | grep "^\"$threadID\"" -A 1 | tail -1 | grep "on object monitor")
 				if [ -n "$waitingOn" ]; then
 					waitingOnId=$(echo "$waitingOn" | grep -o "[0-9]x[0-9a-f]*")
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep " locked <$waitingOnId>" -B 1 | head -1 |awk '{print $2}')
@@ -177,6 +180,9 @@ function findWait(){
 					if [ -z "$resourceLockedBy" ]; then
 						resourceLockedBy=$(echo "$parkingToWaitFor" | sed -e 's/.*(//' -e 's/)$//')
 					fi
+				elif [ -n "$objectMonitor" ]; then
+					waitingOnId=""
+					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep "^\"$threadID\"" -A 1000 | grep "^$" -B 1000 | grep "locked" | head -1 | awk '{print $5}' | sed -e 's/$.*//' -e 's/)$//')
 				else
 					waitingOnId=""
 					resourceLockedBy=""
@@ -195,13 +201,13 @@ function findWait(){
 		cat .tmp/waits.out | sort -k3,3 -t, -n | tail -25 | tac | while read aline; do
 			startTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $1}') +"%Y-%m-%d %T")
 			endTime=$(date -d @$(echo "$aline" | awk 'BEGIN{FS=","}{print $2}') +"%Y-%m-%d %T")
-			stringStart=$(echo "$aline" | awk 'BEGIN{FS=","}{print "Thread: "$4" was waiting for "$3" secconds, from:"}')
-			echo "$stringStart $startTime to: $endTime"
-		done | nl  > .tmp/top.waits.duration
+			stringStart=$(echo "$aline" | awk 'BEGIN{FS=","}{print "      " $3 " : Thread: "$4" was waiting for "$3" secconds, from:"}')
+			echo -e "$stringStart $startTime to: $endTime"
+		done  > .tmp/top.waits.duration
 
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $5}' | sort | uniq -c | sort -n | tac | sed 's/.*[0-9] //' | while read aline; do
 			echo "    Wait: $aline, was caused by: "
-			cat .tmp/waits.out | grep "$aline" | awk 'BEGIN{FS=","}{print $6 " locking the resource \"" $7 "\""}'|sed 's/^ locking the/_Unknown_ locking the/g'|sort|uniq -c|sort -n|tac
+			cat .tmp/waits.out | grep "$aline" | while read al; do test1=$(echo "$al" | awk 'BEGIN{FS=","}{print $7}'); if [ -n "$test1" ]; then echo "$al" | awk 'BEGIN{FS=","}{print $6 " waiting on \"" $7 "\""}'; else echo "$al" | awk 'BEGIN{FS=","}{print $6 " (OOM)"}'; fi; done |sort|uniq -c|sort -n|tac
 			echo ""
 		done > .tmp/top.waits.details
 	fi
@@ -335,7 +341,7 @@ function printReport(){
 		echo ""
 	fi
 	if [ -a ".tmp/top.waits.duration" ]; then
-		echo "Longest waiting processes..."
+		echo "Longest waiting processes (seconds)..."
 		echo ""
 		cat .tmp/top.waits.duration
 		echo ""
