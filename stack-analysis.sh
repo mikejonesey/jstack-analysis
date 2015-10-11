@@ -322,6 +322,9 @@ function graphables(){
 function printReport(){
 
 	# BLOCKAGES...
+	echo "##################################################"
+	echo "# BLOCKED"
+	echo "##################################################"
 
 	if [ -f ".tmp/top.blocked.procs" ]; then
 		echo "----------------------------------------"
@@ -352,6 +355,9 @@ function printReport(){
 	fi
 
 	# WAITS...
+	echo "##################################################"
+	echo "# WAITING"
+	echo "##################################################"
 
 	if [ -f ".tmp/top.waits.procs" ]; then
 		echo "----------------------------------------"
@@ -382,6 +388,10 @@ function printReport(){
 	fi
 
 	# Performance...
+	echo "##################################################"
+	echo "# RUNNING"
+	echo "##################################################"
+
 	if [ -a ".tmp/proa1.out" ]; then
 		#Process uniq thread tasks ignore state...
 		echo "----------------------------------------"

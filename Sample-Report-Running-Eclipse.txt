@@ -1,0 +1,199 @@
+##################################################
+# BLOCKED
+##################################################
+----------------------------------------
+Top blocked process...
+
+      1 java.lang.Object.wait(Native Method)
+
+Top occuring blockages causes...
+
+      1 Unexplained Mystery
+
+Longest blocked processes...
+
+
+----------------------------------------
+Blockage details...
+----------------------------------------
+
+    Blockage: java.lang.Object.wait(Native Method), was caused by: 
+      1  locking the resource ""
+
+
+##################################################
+# WAITING
+##################################################
+----------------------------------------
+Top waiting process...
+
+      2 java.lang.Object.wait(Native Method)
+
+Top occuring wait causes...
+
+      1 org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:400)
+      1 org.eclipse.core.internal.jobs.InternalWorker.run(InternalWorker.java:58)
+
+Longest waiting processes (seconds)...
+
+      182 : Thread: Worker-JM was waiting for 182 secconds, from: 2015-10-11 22:54:05 to: 2015-10-11 22:57:07
+      182 : Thread: Start Level Event Dispatcher was waiting for 182 secconds, from: 2015-10-11 22:54:05 to: 2015-10-11 22:57:07
+
+----------------------------------------
+Long Wait details...
+----------------------------------------
+
+    Wait: java.lang.Object.wait(Native Method), was caused by: 
+      1 org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.getNextEvent(EventManager.java:400) waiting on "(a org.eclipse.osgi.framework.eventmgr.EventManager$EventThread)"
+      1 org.eclipse.core.internal.jobs.InternalWorker.run(InternalWorker.java:58) waiting on "(a java.util.ArrayList)"
+
+
+##################################################
+# RUNNING
+##################################################
+----------------------------------------
+Longest time process...
+----------------------------------------
+##################################################
+# CPU Info
+##################################################
+----------------------------------------
+Cumulative CPU by date and time...
+----------------------------------------
+01/01/70 01:00:00 0
+01/01/70 01:00:00 0
+01/01/70 01:00:00 0
+01/01/70 01:00:00 0
+01/01/70 01:00:00 0
+01/01/70 01:00:00 0
+10/11/15 22:54:05 13.3
+10/11/15 22:54:08 12.9
+10/11/15 22:54:11 11.6
+10/11/15 22:54:14 13.4
+10/11/15 22:54:18 12.8
+10/11/15 22:54:21 11.7
+10/11/15 22:54:24 10.7
+10/11/15 22:54:27 9.9
+10/11/15 22:54:30 9.6
+10/11/15 22:54:33 8.7
+10/11/15 22:54:36 10.2
+10/11/15 22:54:39 8.8
+10/11/15 22:54:42 8.1
+10/11/15 22:54:45 7.7
+10/11/15 22:54:48 6.7
+10/11/15 22:54:51 6.4
+10/11/15 22:54:55 6.1
+10/11/15 22:54:58 6.6
+10/11/15 22:55:01 6
+10/11/15 22:55:04 5.9
+10/11/15 22:55:07 5.8
+10/11/15 22:55:10 5
+10/11/15 22:55:13 4.8
+10/11/15 22:55:16 4.6
+10/11/15 22:55:20 4.6
+10/11/15 22:55:23 4.3
+10/11/15 22:55:26 4.3
+10/11/15 22:55:29 4.2
+10/11/15 22:55:32 4
+10/11/15 22:55:35 4
+10/11/15 22:55:38 3.9
+10/11/15 22:55:41 3.8
+10/11/15 22:55:44 3.8
+10/11/15 22:55:47 3.7
+10/11/15 22:55:50 3.7
+10/11/15 22:55:53 3.9
+10/11/15 22:55:56 3.8
+10/11/15 22:55:59 3.6
+10/11/15 22:56:02 3.6
+10/11/15 22:56:05 3.4
+10/11/15 22:56:08 3.4
+10/11/15 22:56:11 3.4
+10/11/15 22:56:14 3.4
+10/11/15 22:56:17 3.4
+10/11/15 22:56:20 3.2
+10/11/15 22:56:23 3.1
+10/11/15 22:56:26 3.1
+10/11/15 22:56:29 3
+10/11/15 22:56:32 3
+10/11/15 22:56:35 3
+10/11/15 22:56:38 2.9
+10/11/15 22:56:41 2.9
+10/11/15 22:56:44 5.3
+10/11/15 22:56:48 2.4
+10/11/15 22:56:51 2.4
+10/11/15 22:56:54 2.4
+10/11/15 22:56:58 2.4
+10/11/15 22:57:01 2.4
+10/11/15 22:57:04 2.3
+10/11/15 22:57:07 2.3
+
+----------------------------------------
+Top Cumulative CPU by thread...
+----------------------------------------
+109.1 Worker-4
+43 Worker-3
+42.5 Worker-5
+41.4 Worker-0
+30.6 Worker-1
+30.2 Start Level Event Dispatcher
+17.3 Worker-2
+6.7 org.eclipse.wst.sse.ui.internal.reconcile.StructuredRegionProcessor
+6.3 Framework Event Dispatcher
+2.5 ModalContext
+
+----------------------------------------
+Top Cumulative CPU by thread state...
+----------------------------------------
+282.3 TIMED_WAITING
+36.5 WAITING
+4.3 RUNNABLE
+4 BLOCKED
+2.5 org.eclipse.jface.wizard.WizardDialog.run(WizardDialog.java:1028)
+0 0
+0 
+
+----------------------------------------
+Top Cumulative CPU by process...
+----------------------------------------
+319.9 java.lang.Object.wait(Native Method)
+2.9 java.lang.Thread.sleep(Native Method)
+2.5 org.eclipse.equinox.internal.p2.ui.discovery.wizards.CatalogViewer.updateCatalog(CatalogViewer.java:563)
+2.4 org.eclipse.jgit.treewalk.filter.ByteArraySet$Hasher.length(ByteArraySet.java:301)
+1.3 org.eclipse.swt.internal.gtk.OS.g_main_context_wakeup(Native Method)
+0.4 java.net.SocketInputStream.socketRead0(Native Method)
+0.2 org.eclipse.core.internal.filesystem.local.unix.UnixFileNatives.lstat(Native Method)
+0 sun.awt.X11.XToolkit.waitForEvents(Native Method)
+0 org.eclipse.epp.internal.mpc.ui.wizards.MarketplaceWizard.updateNews(MarketplaceWizard.java:687)
+0 org.eclipse.epp.internal.mpc.ui.wizards.MarketplaceViewer.doQuery(MarketplaceViewer.java:347)
+
+##################################################
+# Memory Info
+##################################################
+----------------------------------------
+Top Process loading from disk to memory
+----------------------------------------
+2784 java.lang.Object.wait(Native Method)
+33 org.eclipse.swt.internal.gtk.OS.g_main_context_wakeup(Native Method)
+15 java.lang.Thread.sleep(Native Method)
+10 org.eclipse.equinox.internal.p2.ui.discovery.wizards.CatalogViewer.updateCatalog(CatalogViewer.java:563)
+0 sun.awt.X11.XToolkit.waitForEvents(Native Method)
+0 org.eclipse.jgit.treewalk.filter.ByteArraySet$Hasher.length(ByteArraySet.java:301)
+0 org.eclipse.epp.internal.mpc.ui.wizards.MarketplaceWizard.updateNews(MarketplaceWizard.java:687)
+0 org.eclipse.epp.internal.mpc.ui.wizards.MarketplaceViewer.doQuery(MarketplaceViewer.java:347)
+0 org.eclipse.core.internal.filesystem.local.unix.UnixFileNatives.lstat(Native Method)
+0 java.net.SocketInputStream.socketRead0(Native Method)
+
+----------------------------------------
+Top Threads loading from disk to memory
+----------------------------------------
+1980 Worker-0
+852 Worker-5
+10 ModalContext
+0 Worker-JM
+0 Worker-9
+0 Worker-8
+0 Worker-7
+0 Worker-6
+0 Worker-4
+0 Worker-3
+
