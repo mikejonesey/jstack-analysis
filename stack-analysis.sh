@@ -1,8 +1,18 @@
 #!/bin/bash
 
+# define standard ajp protocol thread names
 STD_EX_PREP="TP-Processor|ajp-bio-8009-exec-|ajp-bio-8010-exec-"
+# define the custom thread names provided in the executor(s)
 CUSTOM_EX_PREP="(hybrisHTTP|$STD_EX_PREP)"
 MAX_THREADS="450"
+
+# this setting defines at what point you wish to be notified of grouped threads waiting on object monitor
+# a low count indicates the object monitor is performing normal actions
+# a high counnt of threads in object wait for a single process would indicate there is an issue perhaps with GC
+# to debug object waits add the following line to the jvm options:
+# -XX:CompileCommand="exclude,java/lang/Object.wait"
+# note adding this line will increase the compiler thread's cpu usage as the class will no longer be JIT-compiled.
+OOM_UNHEALTHY_THREASHOLD="5"
 
 read -p "Max Threads: " MAX_THREADS
 
@@ -130,6 +140,9 @@ function findWait(){
 	if [ -f ".tmp/waits.out" ]; then
 	  rm -rvf .tmp/waits.out
 	fi
+	if [ -f ".tmp/waits.oom.out" ]; then
+	  rm -rvf .tmp/waits.oom.out
+	fi
 	if [ -f ".tmp/top.waits.cause" ]; then
 	  rm -rvf .tmp/top.waits.cause
 	fi
@@ -143,7 +156,9 @@ function findWait(){
 	  rm -rvf .tmp/top.waits.procs
 	fi
 
-	cat .tmp/states.out | grep ,WAITING, | grep -vE "(AJP_WAITING)" | awk 'BEGIN{FS=","}{print $3}' | sort -u | while read bNode; do
+	((OOM_UNHEALTHY_THREASHOLD--))
+
+	cat .tmp/states.out | grep ,WAITING, | awk 'BEGIN{FS=","}{print $3}' | sort -u | while read bNode; do
 		echo "Processing waits in thread $bNode"
 		cat .tmp/states.out | grep "$bNode" | sort -n | sed -e 's/,RUNNABLE,\(.*\)/,RUNNABLE,\1\n~ENDBLOCK~/g' | sed  -e ':amoo;N;$!bamoo;s/\n/~LINEBREAK~/g' -e 's/~ENDBLOCK~/\n/g' | sed 's/^~LINEBREAK~//' | grep ",WAITING," | while read ablock; do
 			i=1
@@ -181,18 +196,29 @@ function findWait(){
 						resourceLockedBy=$(echo "$parkingToWaitFor" | sed -e 's/.*(//' -e 's/)$//')
 					fi
 				elif [ -n "$objectMonitor" ]; then
-					waitingOnId=""
+					waitingOnId="OOM"
 					resourceLockedBy=$(cat "stacks/stack-$fileStamp.out" | grep "^\"$threadID\"" -A 1000 | grep "^$" -B 1000 | grep "locked" | head -1 | awk '{print $5}' | sed -e 's/$.*//' -e 's/)$//')
 				else
 					waitingOnId=""
 					resourceLockedBy=""
 				fi
 				
-				echo "$blockageStart,$blockageEnd,$blockDuration,$threadID,$blockedTask,$resourceLockedBy,$desiredResource" >> .tmp/waits.out
+				if [ "$waitingOnId" == "OOM" ]; then
+					waitingOnId=""
+					echo "$blockageStart,$blockageEnd,$blockDuration,$threadID,$blockedTask,$resourceLockedBy,$desiredResource" >> .tmp/waits.oom.out
+				else
+					echo "$blockageStart,$blockageEnd,$blockDuration,$threadID,$blockedTask,$resourceLockedBy,$desiredResource" >> .tmp/waits.out
+				fi
 				((i++))
 			done
 		done
 	done
+
+	# append oom waits over threshold
+	valid_oom_proc=$(cat .tmp/waits.oom.out | awk 'BEGIN{FS=","}{print $6}' | sort | uniq -c | while read aw; do if [ "$(echo "$aw" | awk '{print $1}')" -gt "$OOM_UNHEALTHY_THREASHOLD" ]; then echo "$aw"; fi; done | awk '{print ","$2","}' | grep -v ^$)
+	if [ -n "$valid_oom_proc" ]; then
+		grep "$valid_oom_proc" .tmp/waits.oom.out >> .tmp/waits.out
+	fi
 
 	if [ -f ".tmp/waits.out" ]; then
 		cat .tmp/waits.out | awk 'BEGIN{FS=","}{print $5}' | sort | uniq -c | sort -n | tac > .tmp/top.waits.procs

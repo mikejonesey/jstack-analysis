@@ -1,0 +1,6 @@
+1444521555,1444521573,18,Bundle File Closer,java.lang.Object.wait(Native Method),org.eclipse.osgi.framework.eventmgr.EventManager,
+1444521555,1444521573,18,DLTK indexing,java.lang.Object.wait(Native Method),org.eclipse.dltk.core.search.indexing.IndexManager,
+1444521555,1444521573,18,EMF Reference Cleaner,java.lang.Object.wait(Native Method),java.lang.ref.ReferenceQueue,
+1444521555,1444521573,18,Framework Event Dispatcher,java.lang.Object.wait(Native Method),org.eclipse.osgi.framework.eventmgr.EventManager,
+1444521555,1444521573,18,Java indexing,java.lang.Object.wait(Native Method),org.eclipse.jdt.internal.core.search.indexing.IndexManager,
+1444521555,1444521573,18,Reference Handler,java.lang.Object.wait(Native Method),java.lang.ref.Reference,
